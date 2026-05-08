@@ -1,0 +1,61 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+        <style>
+            body {
+                font-family: "PingFang SC", "SimHei", "Arial Unicode MS", Arial, sans-serif;
+                padding: 20px;
+                font-size: 16px;
+                line-height: 1.6;
+                color: #333;
+                width: 800px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+    <p><strong>RoPE（Rotary Positional Embedding）</strong> 是一种位置编码方式，它通过在<strong>向量空间中引入旋转操作</strong>来融合绝对位置和相对位置的信息。</p>
+<p>核心思想是：</p>
+<ol>
+<li>将 token 的特征向量两两组合成复数形式 $(x_{2i}, x_{2i+1})$，即表示为二维向量对；</li>
+<li>对每个向量对施加角度为 $\theta$ 的旋转操作：
+[
+\begin{aligned}
+\text{RoPE}(x_{2i}, x_{2i+1}) &amp;= (x_{2i} \cos \theta - x_{2i+1} \sin \theta, \
+&amp;\quad x_{2i} \sin \theta + x_{2i+1} \cos \theta)
+\end{aligned}
+]
+其中 $\theta$ 通常是线性递增的，用于编码不同的位置。</li>
+</ol>
+<p>RoPE 的优势包括：</p>
+<ul>
+<li><strong>实现简单</strong>：不像 Transformer XL 那样需要额外结构；</li>
+<li><strong>计算开销小</strong>：旋转操作比其他复杂编码方式更高效；</li>
+<li><strong>支持线性注意力结构</strong>：不像相对位置编码那样必须依赖注意力矩阵；</li>
+<li><strong>具有远程衰减特性</strong>：模型更容易关注近距离 token，有利于语言建模。</li>
+</ul>
+<p>但缺点也比较明显：</p>
+<ul>
+<li><strong>外推能力有限</strong>：相比 Alibi 这类具备强外推能力的位置编码，RoPE 只能稍微延长序列长度推理（例如训练长度为 2k，只能支持略长于 2k 的推理）；</li>
+<li>通常需要配合线性插值、NTK 插值、YaRN 等方法提升长序列推理性能。</li>
+</ul>
+
+    <script>
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\(', right: '\)', display: false},
+                {left: '\[', right: '\]', display: true}
+            ],
+            throwOnError: false
+        });
+    </script>
+    </body>
+    </html>
+    
