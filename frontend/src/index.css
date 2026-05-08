@@ -1,27 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Light playful palette */
+  --c-bg: #faf8ff;
+  --c-bg-warm: #fff7f0;
+  --c-surface: #ffffff;
+  --c-surface-raised: #f5f0ff;
+  --c-border: #e8e0f0;
+  --c-border-subtle: #f0eaf8;
+  --c-text: #2d1b4e;
+  --c-text-secondary: #6b5a82;
+  --c-text-muted: #9b8fb0;
+
+  /* Primary: warm violet */
+  --c-primary: #8b5cf6;
+  --c-primary-light: #a78bfa;
+  --c-primary-dark: #7c3aed;
+  --c-primary-bg: #f5f0ff;
+
+  /* Secondary: coral/peach */
+  --c-secondary: #f97066;
+  --c-secondary-light: #fca5a1;
+  --c-secondary-bg: #fff5f4;
+
+  /* Accent: sunny gold */
+  --c-gold: #fbbf24;
+  --c-gold-light: #fde68a;
+  --c-gold-bg: #fffbeb;
+
+  /* Success: mint */
+  --c-success: #34d399;
+  --c-success-light: #6ee7b7;
+  --c-success-bg: #ecfdf5;
+
+  /* Danger */
+  --c-danger: #f87171;
+
+  /* Fonts */
+  --font-display: 'Nunito', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(139, 92, 246, 0.06), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 8px 24px rgba(139, 92, 246, 0.12), 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-button: 0 4px 12px rgba(139, 92, 246, 0.25);
+  --shadow-float: 0 12px 40px rgba(139, 92, 246, 0.15);
+}
+
 @layer base {
-  :root {
-    --radius: 0.5rem
-  ;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%}
-  .dark {
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%
+  * {
+    border-color: var(--c-border-subtle);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.6;
   }
 }
 
+@layer utilities {
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Scrollbar — soft rounded */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-border);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-text-muted);
+}
+
+/* Selection */
+::selection {
+  background: var(--c-primary);
+  color: white;
+}
+
+/* === Animations === */
+
+@keyframes bounce-in {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes streak-glow {
+  0%, 100% { text-shadow: 0 0 4px rgba(251, 191, 36, 0.3); }
+  50% { text-shadow: 0 0 16px rgba(251, 191, 36, 0.6); }
+}
+
+.animate-bounce-in { animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+.animate-wiggle { animation: wiggle 0.4s ease-in-out; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-shimmer { animation: shimmer 2s linear infinite; }
+.animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+.animate-streak-glow { animation: streak-glow 2s ease-in-out infinite; }
+
+/* Gradient text utility */
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Blob background decorations */
+.blob-decoration::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob-decoration::after {
+  content: '';
+  position: fixed;
+  bottom: -15%;
+  left: -10%;
+  width: 35vw;
+  height: 35vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249, 112, 102, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
