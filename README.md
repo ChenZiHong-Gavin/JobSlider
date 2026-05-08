@@ -6,6 +6,9 @@
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688?logo=fastapi)
 
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/bada22ee-ce49-4ad9-8c47-7dba3799e720" />
+
+
 ## 功能特性
 
 - **通用知识提取** - 指定任意文件夹，LLM 自动生成问答卡片和干扰选项
